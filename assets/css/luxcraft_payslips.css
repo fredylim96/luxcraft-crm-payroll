@@ -1,0 +1,382 @@
+.luxcraft-card { background:#fff; border:1px solid #e5e7eb; border-radius:8px; padding:20px; margin-bottom:20px; }
+.luxcraft-card h4 { margin-top:0; }
+.luxcraft-form-grid { display:grid; grid-template-columns:repeat(12,minmax(0,1fr)); gap:16px; align-items:start; }
+.luxcraft-col-12{grid-column:span 12}.luxcraft-col-8{grid-column:span 8}.luxcraft-col-6{grid-column:span 6}.luxcraft-col-4{grid-column:span 4}.luxcraft-col-3{grid-column:span 3}
+.luxcraft-actions{display:flex;flex-wrap:wrap;gap:8px;align-items:center}.luxcraft-table-responsive{width:100%;overflow-x:auto}
+.luxcraft-muted{color:#6b7280;font-size:12px}.luxcraft-summary{border:1px solid #d1d5db;background:#f9fafb;border-radius:8px;padding:15px}.luxcraft-summary strong{display:block;margin-bottom:5px}
+.luxcraft-section-title{font-weight:700;margin:10px 0 5px;border-bottom:1px solid #e5e7eb;padding-bottom:8px}
+.luxcraft-hidden{display:none!important}.luxcraft-payslip-box{background:#fff;border:1px solid #ddd;padding:22px;margin-bottom:20px}.luxcraft-payslip-footer{margin-top:35px;font-style:italic;color:#666;text-align:center}
+@media(max-width:991px){.luxcraft-col-8,.luxcraft-col-6,.luxcraft-col-4,.luxcraft-col-3{grid-column:span 12}.luxcraft-actions .btn{width:100%}}
+
+
+.luxcraft-field .bootstrap-select,
+.luxcraft-field .btn-group.bootstrap-select {
+  width: 100% !important;
+}
+.luxcraft-field label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+.luxcraft-section-card {
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 16px;
+  background: #fff;
+}
+.luxcraft-section-card h5 {
+  margin-top: 0;
+  margin-bottom: 14px;
+  font-weight: 700;
+}
+.luxcraft-summary-title {
+  display: block;
+  margin-bottom: 14px;
+  font-size: 15px;
+}
+.luxcraft-summary-table {
+  margin-bottom: 0;
+  background: #fff;
+}
+.luxcraft-summary-table th {
+  width: 220px;
+  background: #f3f4f6;
+}
+
+
+/* v17 invoice-style payslip preview */
+.luxcraft-invoice-shell{background:#fff;border:1px solid #dfe3e8;border-radius:6px;padding:28px;max-width:980px;margin:0 auto 20px auto;}
+.luxcraft-invoice-header{display:flex;justify-content:space-between;gap:24px;align-items:flex-start;border-bottom:3px solid #111827;padding-bottom:20px;margin-bottom:24px;}
+.luxcraft-invoice-logo{max-width:92px;max-height:58px;margin-bottom:12px;}
+.luxcraft-invoice-company{font-size:20px;font-weight:700;letter-spacing:.3px;}
+.luxcraft-invoice-muted{color:#6b7280;}
+.luxcraft-invoice-title{text-align:right;}
+.luxcraft-invoice-title h2{margin:0;font-size:26px;letter-spacing:1px;}
+.luxcraft-status{display:inline-block;padding:5px 10px;border-radius:999px;font-size:12px;font-weight:700;text-transform:uppercase;}
+.luxcraft-status-paid{background:#dcfce7;color:#166534;}
+.luxcraft-status-draft{background:#f3f4f6;color:#374151;}
+.luxcraft-info-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:22px;}
+.luxcraft-info-box{border:1px solid #d1d5db;border-radius:5px;overflow:hidden;}
+.luxcraft-info-box h4{margin:0;background:#f3f4f6;padding:10px 12px;font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:.4px;}
+.luxcraft-info-box table{margin:0;}
+.luxcraft-info-box th{width:38%;background:#fafafa;}
+.luxcraft-pay-table th{background:#f3f4f6;}
+.luxcraft-net-row th,.luxcraft-net-row td{background:#111827!important;color:#fff;font-size:15px;}
+.luxcraft-preview-actions{max-width:980px;margin:0 auto 16px auto;display:flex;justify-content:flex-end;gap:8px;flex-wrap:wrap;}
+.luxcraft-notes-box{border:1px solid #d1d5db;padding:12px;min-height:42px;border-radius:5px;}
+@media(max-width:768px){.luxcraft-invoice-header,.luxcraft-info-grid{display:block}.luxcraft-invoice-title{text-align:left;margin-top:18px}.luxcraft-info-box{margin-bottom:14px}}
+
+
+/* v18 centered payslip header */
+.luxcraft-invoice-header-centered {
+  display: block !important;
+  text-align: center;
+}
+.luxcraft-invoice-logo-large {
+  width: 200px !important;
+  max-width: 200px !important;
+  max-height: none !important;
+  margin: 0 auto 14px auto;
+}
+.luxcraft-invoice-title-centered {
+  text-align: center !important;
+  margin-top: 14px;
+}
+
+
+/* v28 section cleanup */
+.luxcraft-info-box {
+  border: none !important;
+}
+.luxcraft-info-box h4 {
+  background: transparent !important;
+  padding: 0 !important;
+  font-size: 14px !important;
+  text-transform: none !important;
+  letter-spacing: 0 !important;
+  margin: 0 0 10px 0 !important;
+}
+.luxcraft-info-box table th,
+.luxcraft-info-box table td {
+  border: none !important;
+}
+.luxcraft-info-grid {
+  margin-bottom: 28px !important;
+}
+.luxcraft-pay-table {
+  margin-bottom: 28px !important;
+}
+
+
+/* v29 print/view section refinements */
+.luxcraft-info-box table th,
+.luxcraft-info-box table td {
+  border: 1px solid #d1d5db !important;
+}
+
+.luxcraft-info-box h4,
+.luxcraft-print-area .luxcraft-info-box h4 {
+  font-size: 14px !important;
+  font-weight: 700 !important;
+  line-height: 1.1 !important;
+  text-transform: none !important;
+  letter-spacing: 0 !important;
+  margin: 18px 0 8px 0 !important;
+  padding: 0 !important;
+  background: transparent !important;
+}
+
+
+
+
+/* v35 button alignment */
+.luxcraft-preview-actions,
+.luxcraft-actions {
+  justify-content: center !important;
+  text-align: center !important;
+}
+
+
+/* v36 reliable action alignment */
+.luxcraft-view-actions {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  gap: 8px !important;
+  flex-wrap: wrap !important;
+  text-align: center !important;
+  width: 100% !important;
+}
+#luxcraft-bulk-paid-btn {
+  margin-left: 6px;
+}
+
+
+/* v37: place bulk paid beside Generate Payslip */
+#luxcraft-bulk-paid-btn {
+  margin-left: 6px;
+  white-space: nowrap;
+}
+@media (max-width: 991px) {
+  #luxcraft-bulk-paid-btn {
+    margin-left: 0;
+    width: 100%;
+  }
+}
+
+
+/* v38 top buttons alignment */
+.luxcraft-top-buttons {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  flex-wrap: wrap !important;
+}
+.luxcraft-top-buttons .btn,
+#luxcraft-bulk-paid-btn {
+  margin: 0 !important;
+}
+
+/* v38 Generate Payslip form cleanup */
+.luxcraft-form-section {
+  border: none !important;
+  background: transparent !important;
+  padding: 0 !important;
+  margin-bottom: 24px !important;
+}
+.luxcraft-form-section h4 {
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  margin: 0 0 14px 0 !important;
+  padding: 0 !important;
+  background: transparent !important;
+}
+.luxcraft-form-section .luxcraft-summary-title {
+  margin-bottom: 14px !important;
+}
+
+
+/* v39 Generate Payslip employee dropdown + Payroll Profile commission toggle */
+.luxcraft-field label,
+.luxcraft-form-section label {
+  display: block !important;
+  margin-bottom: 6px !important;
+}
+.luxcraft-field .bootstrap-select,
+.luxcraft-field .btn-group.bootstrap-select,
+#staff_id + .bootstrap-select {
+  width: 100% !important;
+  display: block !important;
+}
+.luxcraft-commission-rate-wrap.luxcraft-hidden,
+.commission-rate-wrap.luxcraft-hidden {
+  display: none !important;
+}
+
+
+/* v40: reliable Employee dropdown label layout */
+#payslip-form .luxcraft-field {
+  display: block !important;
+  width: 100% !important;
+  clear: both !important;
+}
+#payslip-form .luxcraft-field label {
+  display: block !important;
+  width: 100% !important;
+  float: none !important;
+  clear: both !important;
+  margin-bottom: 6px !important;
+}
+#payslip-form #staff_id,
+#payslip-form #staff_id + .bootstrap-select,
+#payslip-form .luxcraft-field .bootstrap-select,
+#payslip-form .luxcraft-field .btn-group.bootstrap-select {
+  display: block !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  clear: both !important;
+}
+
+/* v40: reliable commission percentage visibility */
+.luxcraft-commission-rate-wrap.luxcraft-hidden,
+.commission-rate-wrap.luxcraft-hidden {
+  display: none !important;
+}
+
+
+/* v41 Payroll Profile form alignment */
+.luxcraft-card .luxcraft-field {
+  display: block !important;
+  width: 100% !important;
+  clear: both !important;
+}
+.luxcraft-card .luxcraft-field label {
+  display: block !important;
+  width: 100% !important;
+  float: none !important;
+  clear: both !important;
+  margin-bottom: 6px !important;
+  font-weight: 600;
+}
+.luxcraft-card .luxcraft-field .bootstrap-select,
+.luxcraft-card .luxcraft-field .btn-group.bootstrap-select,
+#profile_staff_id + .bootstrap-select,
+#staff_id + .bootstrap-select {
+  display: block !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  clear: both !important;
+}
+
+.luxcraft-commission-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+  flex-wrap: wrap;
+  width: 100%;
+  padding-top: 4px;
+}
+.luxcraft-commission-check {
+  min-width: 210px;
+  padding-top: 24px;
+}
+.luxcraft-commission-check .checkbox {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.luxcraft-commission-input {
+  width: 260px;
+  max-width: 100%;
+}
+.luxcraft-commission-input .form-group {
+  margin-bottom: 0;
+}
+
+@media (max-width: 991px) {
+  .luxcraft-commission-row {
+    display: block;
+  }
+  .luxcraft-commission-check {
+    min-width: 0;
+    padding-top: 0;
+    margin-bottom: 10px;
+  }
+  .luxcraft-commission-input {
+    width: 100%;
+  }
+}
+
+
+/* v42 Payslip list header alignment */
+.luxcraft-list-header {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 12px !important;
+  flex-wrap: wrap !important;
+  width: 100% !important;
+}
+.luxcraft-list-header h4 {
+  margin: 0 !important;
+  text-align: left !important;
+}
+.luxcraft-list-header .luxcraft-top-buttons {
+  margin-left: auto !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: flex-end !important;
+  gap: 8px !important;
+}
+#luxcraft-bulk-unpaid-btn {
+  white-space: nowrap;
+}
+@media (max-width: 991px) {
+  .luxcraft-list-header {
+    display: block !important;
+  }
+  .luxcraft-list-header .luxcraft-top-buttons {
+    margin-top: 10px;
+    width: 100%;
+    justify-content: flex-start !important;
+  }
+}
+
+
+/* v43 list header / buttons */
+.luxcraft-list-header {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 12px !important;
+  flex-wrap: wrap !important;
+}
+.luxcraft-list-header h4 {
+  margin: 0 !important;
+  text-align: left !important;
+}
+.luxcraft-top-buttons {
+  margin-left: auto !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: flex-end !important;
+  gap: 8px !important;
+  flex-wrap: wrap !important;
+}
+@media (max-width: 991px) {
+  .luxcraft-list-header {
+    display: block !important;
+  }
+  .luxcraft-top-buttons {
+    margin-top: 10px !important;
+    margin-left: 0 !important;
+    justify-content: flex-start !important;
+  }
+}
+
+
+/* v46 print pagination */
+.luxcraft-print-page-number { display: none; }
+
+
+/* v47 JS-generated print pagination */
+@media screen { .luxcraft-print-page-number { display: none !important; } }
