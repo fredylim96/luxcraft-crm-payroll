@@ -24,11 +24,11 @@ return [
     'status' => 'Paid',
     'currency' => 'SGD',
     'earnings' => [
-        ['description' => 'Base Salary', 'amount' => 6500.00],
-        ['description' => 'Transport Allowance', 'amount' => 250.00],
+        ['description' => 'Base Salary', 'note' => 'Standard monthly remuneration', 'amount' => 6500.00],
+        ['description' => 'Transport Allowance', 'note' => 'Fixed monthly allowance', 'amount' => 250.00],
     ],
     'deductions' => [
-        ['description' => 'Employee CPF Contribution', 'amount' => 1350.00],
+        ['description' => 'Employee CPF Contribution', 'note' => 'Statutory contribution', 'amount' => 1350.00],
     ],
     'gross_earnings' => 6750.00,
     'total_deductions' => 1350.00,

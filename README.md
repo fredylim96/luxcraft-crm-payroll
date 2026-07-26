@@ -28,7 +28,7 @@ Perfex requires the module directory and bootstrap filename to match. The instal
 
 ## Why the HTML has a dedicated PDF view
 
-TCPDF's `writeHTML()` supports a useful but limited subset of browser HTML/CSS. The browser design cannot be passed through unchanged when it relies on flex/grid layouts, pseudo-elements, shadows, rounded cards, CSS variables, or complex positioning. `views/templates/pdf.php` preserves the original premium teal palette, spacing, typographic hierarchy, two-column earnings/deductions layout, and prominent net-pay panel, but expresses them with nested tables, borders, padding, and inline-compatible selectors that TCPDF renders reliably.
+TCPDF's `writeHTML()` supports a useful but limited subset of browser HTML/CSS. The browser design cannot be passed through unchanged when it relies on flex/grid layouts, pseudo-elements, shadows, rounded cards, CSS variables, or complex positioning. `views/templates/pdf.php` follows the supplied HTML's composition directly—brand/status and payroll-summary header, paired employee/company cards, combined earnings-and-deductions table, dark net-pay summary, and confidential footer—but expresses it with nested tables, solid fills, borders, padding, and inline-compatible selectors that TCPDF renders reliably.
 
 The screen/print template remains separate so future browser styling does not accidentally break archived payroll PDFs. Do not paste a full browser document into the PDF view; use fragments supported by TCPDF and keep all values escaped.
 
@@ -40,7 +40,7 @@ The screen/print template remains separate so future browser styling does not ac
 - employee: `employee_name`, `employee_id`, `job_title`, `department`, `date_joined`, `nric_fin`
 - payroll: `payslip_no`, `pay_date`, `payroll_month`, `payment_mode`, `status`, `currency`
 - totals: `gross_earnings`, `total_deductions`, `employer_cpf`, `employee_cpf`, `ytd_gross`, `ytd_cpf`, `net_pay`
-- variable lines: `earnings[]` and `deductions[]`, each containing `description` and `amount`
+- variable lines: `earnings[]` and `deductions[]`, each containing `description`, `amount`, and an optional `note`
 
 New records can store variable lines as JSON in `earnings_json` and `deductions_json`. Existing module records are backward compatible: base salary, commission, allowances, other deductions, and CPF columns are automatically converted into lines. The example at `luxcraft_payslips/examples/sample_payload.php` documents every field.
 

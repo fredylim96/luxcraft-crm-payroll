@@ -236,7 +236,11 @@ function luxcraft_decode_lines($json)
     $lines = [];
     foreach ($decoded as $line) {
         if (is_array($line) && isset($line['description'], $line['amount'])) {
-            $lines[] = ['description' => (string)$line['description'], 'amount' => (float)$line['amount']];
+            $lines[] = [
+                'description' => (string)$line['description'],
+                'note'        => isset($line['note']) ? (string)$line['note'] : '',
+                'amount'      => (float)$line['amount'],
+            ];
         }
     }
     return $lines;
