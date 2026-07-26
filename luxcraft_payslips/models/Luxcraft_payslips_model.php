@@ -73,6 +73,10 @@ class Luxcraft_payslips_model extends App_Model
             $this->db->where('p.salary_month', $filters['salary_month']);
         }
 
+        if (!empty($filters['status'])) {
+            $this->db->where('p.status', $filters['status']);
+        }
+
         $this->db->order_by('p.salary_month', 'DESC');
         $this->db->order_by('p.id', 'DESC');
 

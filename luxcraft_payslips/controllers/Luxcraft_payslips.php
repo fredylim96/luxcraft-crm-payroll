@@ -378,22 +378,15 @@ class Luxcraft_payslips extends AdminController
             access_denied('Payslip');
         }
 
-        $html = $this->load->view('luxcraft_payslips/templates/pdf', ['payslip' => $payslip], true);
-        $employee_name = !empty($payslip['payroll_name'])
-            ? $payslip['payroll_name']
-            : $payslip['firstname'].' '.$payslip['lastname'];
-        $filename = 'Payslip_'.$payslip['salary_month'].'_'.$employee_name.'.pdf';
-        $filename = preg_replace('/[^A-Za-z0-9_.-]+/', '_', $filename);
-
-        $pdf = $this->make_pdf_document('Payslip - '.$employee_name.' - '.$payslip['salary_month']);
-        $pdf->writeHTML($html, true, false, true, false, '');
-        $pdf->Output($filename, 'D');
+        $data = luxcraft_payslip_pdf_data($payslip);
+        $this->load->library('luxcraft_payslips/Luxcraft_payslip_pdf');
+        $this->luxcraft_payslip_pdf->render($data, 'D', luxcraft_payslip_filename($data));
         exit;
     }
 
     public function bulk_download()
     {
-        if (!is_admin()) access_denied('Payslip');
+        if (!$this->can_view_all_payslips()) access_denied('Payslip');
 
         $ids = $this->input->post('ids');
         if (!$ids) {
@@ -401,21 +394,30 @@ class Luxcraft_payslips extends AdminController
             redirect(admin_url('luxcraft_payslips'));
         }
 
-        $zip_path = sys_get_temp_dir() . '/payslips_' . time() . '.zip';
+        if (!class_exists('ZipArchive')) {
+            show_error('The PHP zip extension is required for bulk downloads.', 500);
+        }
+        $this->load->library('luxcraft_payslips/Luxcraft_payslip_pdf');
+        $zip_path = tempnam(sys_get_temp_dir(), 'luxcraft_payslips_');
         $zip = new ZipArchive();
-        $zip->open($zip_path, ZipArchive::CREATE);
+        if ($zip->open($zip_path, ZipArchive::CREATE | ZipArchive::OVERWRITE) !== true) {
+            show_error('Unable to create the payslip archive.', 500);
+        }
 
         foreach ($ids as $id) {
             $payslip = $this->luxcraft_payslips_model->get($id);
             if (!$payslip) continue;
-            $html = $this->load->view('luxcraft_payslips/templates/pdf', ['payslip' => $payslip], true);
-            $tmp = sys_get_temp_dir() . '/payslip_' . $id . '.html';
-            file_put_contents($tmp, $html);
-            $zip->addFile($tmp, 'Payslip_'.$payslip['salary_month'].'_'.$payslip['firstname'].'_'.$payslip['lastname'].'.html');
+            $data = luxcraft_payslip_pdf_data($payslip);
+            $zip->addFromString(
+                luxcraft_payslip_filename($data),
+                $this->luxcraft_payslip_pdf->render($data, 'S', luxcraft_payslip_filename($data))
+            );
         }
 
         $zip->close();
-        force_download($zip_path, null);
+        force_download('LuxCraft_Payslips_' . date('Ymd_His') . '.zip', file_get_contents($zip_path));
+        @unlink($zip_path);
+        exit;
     }
 
 
@@ -444,32 +446,6 @@ class Luxcraft_payslips extends AdminController
     }
 
 
-
-    private function make_pdf_document($title = 'Payslip')
-    {
-        if (!class_exists('TCPDF')) {
-            $tcpdf_path = APPPATH . 'third_party/tcpdf/tcpdf.php';
-            if (file_exists($tcpdf_path)) {
-                require_once($tcpdf_path);
-            }
-        }
-
-        if (!class_exists('TCPDF')) {
-            show_error('TCPDF library not found. Please confirm Perfex TCPDF is installed under application/third_party/tcpdf/.', 500);
-        }
-
-        $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
-        $pdf->SetCreator(get_option('companyname'));
-        $pdf->SetAuthor(get_option('companyname'));
-        $pdf->SetTitle($title);
-        $pdf->setPrintHeader(false);
-        $pdf->setPrintFooter(false);
-        $pdf->SetMargins(15, 15, 15);
-        $pdf->SetAutoPageBreak(true, 15);
-        $pdf->AddPage();
-
-        return $pdf;
-    }
 
     private function normalize_salary_month($value)
     {

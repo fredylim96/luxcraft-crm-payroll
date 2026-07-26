@@ -1,32 +1,48 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed'); ?>
 <?php
-$logo_url = luxcraft_company_favicon_url();
-$employee_name = !empty($payslip['payroll_name']) ? $payslip['payroll_name'] : $payslip['firstname'].' '.$payslip['lastname'];
-$is_paid = isset($payslip['status']) && $payslip['status'] === 'paid';
-$status_label = $is_paid ? 'Salary Credited' : 'Pending Salary Payment';
-$status_bg = $is_paid ? '#dcefe2' : '#fff0bd';
-$status_color = $is_paid ? '#24643a' : '#775900';
+$e = 'luxcraft_pdf_escape';
+$money = function ($amount) use ($data) {
+    return $data['currency'] . ' ' . number_format((float)$amount, 2);
+};
 ?>
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><style>
-body{font-family:dejavusans,sans-serif;font-size:8.8px;line-height:1.35;color:#1f2328;background:#fff}
-.sheet{width:100%;border:1px solid #deddd9;background-color:#fcfbf8}.hero{padding:20px;background-color:#edf4f3;border-bottom:1px solid #d5dedc}.layout,.meta-grid,.detail-grid,.pay-table,.summary-table,.footer-table{width:100%;border-collapse:collapse}.layout td,.meta-grid td,.detail-grid td,.summary-table td,.footer-table td{border:0;vertical-align:top}.brand-col{width:57%;padding-right:14px}.summary-col{width:43%;padding-left:14px}.brand-line{width:100%;border-collapse:collapse;table-layout:fixed}.brand-line td{border:0;vertical-align:middle}.logo-cell{width:30%;padding:7px 10px 7px 7px;background-color:#fff}.brand-text-cell{width:70%;padding-left:10px}.logo{display:block;width:54px;max-width:54px;max-height:54px}.eyebrow,.label{color:#8c919a;font-size:7px;font-weight:bold;text-transform:uppercase;letter-spacing:.8px}.company{font-family:dejavuserif,serif;font-size:18px;font-weight:bold}.uen{color:#5d6470;font-size:8px}.status{margin:13px 0 11px;padding:6px 10px;font-size:8px;font-weight:bold}.title{font-size:22px;font-weight:bold;line-height:1.1;margin-bottom:5px}.intro{color:#5d6470;font-size:8px}.payroll-box{padding:14px;border:1px solid #dce5e3;background-color:#fff}.box-heading{font-size:11px;font-weight:bold}.meta-grid{margin-top:9px}.meta-grid td{width:50%;padding:6px 5px}.value{font-size:8.5px;font-weight:bold}.content{padding:17px 20px 18px}.section-row{margin-bottom:14px}.half-left{width:50%;padding-right:7px}.half-right{width:50%;padding-left:7px}.card{padding:13px;border:1px solid #deddd9;background-color:#fff}.card-head{font-size:11px;font-weight:bold;margin-bottom:8px}.detail-grid td{width:50%;padding:5px 4px}.detail-value{font-weight:bold;font-size:8.5px}.salary-left{width:59%;padding-right:7px}.salary-right{width:41%;padding-left:7px}.pay-table{border-collapse:collapse}.pay-table th{padding:6px 3px;border-bottom:1px solid #d8d8d5;color:#8c919a;font-size:7px;text-transform:uppercase;text-align:left}.pay-table td{padding:8px 3px;border-bottom:1px solid #ebeae7}.right{text-align:right}.summary-panel{padding:14px;background-color:#0f5b63;color:#fff}.summary-panel .label{color:#bdd1d3}.net-pay{margin:10px 0;padding:11px;border:1px solid #4e858a;background-color:#2a6b72}.net-amount{font-family:dejavuserif,serif;font-size:18px;font-weight:bold;color:#fff}.summary-table td{padding:7px 0;border-bottom:1px solid #47777b;color:#fff}.remarks{margin-top:14px}.footer-table{margin-top:15px;border-top:1px solid #deddd9}.footer-table td{padding-top:10px;color:#5d6470;font-size:7.5px}.seal{text-align:right;color:#0f5b63;font-weight:bold;text-transform:uppercase;letter-spacing:.5px}
-</style></head><body><div class="sheet">
-<div class="hero"><table class="layout"><tr><td class="brand-col">
-  <table class="brand-line" width="100%"><tr><?php if($logo_url){ ?><td class="logo-cell" width="30%"><img src="<?php echo $logo_url; ?>" class="logo" width="54"></td><?php } ?><td class="brand-text-cell" width="70%"><span class="eyebrow">Payslip Statement</span><br><span class="company">LUXCRAFT PTE. LTD.</span><br><span class="uen">UEN: 202343751W</span></td></tr></table>
-  <div class="status" style="background-color:<?php echo $status_bg; ?>;color:<?php echo $status_color; ?>">&#9679;&nbsp; <?php echo $status_label; ?></div>
-  <div class="title"><?php echo luxcraft_format_salary_month($payslip['salary_month']); ?> Payslip</div>
-</td><td class="summary-col"><div class="payroll-box"><div class="eyebrow">Payroll Summary</div><table class="meta-grid">
-  <tr><td><span class="label">Salary Month</span><br><span class="value"><?php echo luxcraft_format_salary_month($payslip['salary_month']); ?></span><br><br><span class="label">Payment Date</span><br><span class="value"><?php echo _d($payslip['payment_date']); ?></span></td><td><span class="label">Currency</span><br><span class="value">SGD</span><br><br><span class="label">Payment Method</span><br><span class="value"><?php echo $payslip['payment_method']; ?></span></td></tr>
-</table></div></td></tr></table></div>
-<div class="content">
-<table class="layout section-row"><tr><td class="half-left"><div class="card"><div class="card-head">Employee Information</div><table class="detail-grid"><tr><td><span class="label">Employee Name</span><br><span class="detail-value"><?php echo $employee_name; ?></span></td><td><span class="label">Job Title</span><br><span class="detail-value"><?php echo $payslip['job_title']; ?></span></td></tr></table></div></td><td class="half-right"><div class="card"><div class="card-head">Payment Details</div><table class="detail-grid"><tr><td><span class="label">Payment Method</span><br><span class="detail-value"><?php echo $payslip['payment_method']; ?></span></td><td><span class="label">Payment Details</span><br><span class="detail-value"><?php echo $payslip['payment_details']; ?></span></td></tr></table></div></td></tr></table>
-<table class="layout"><tr><td class="salary-left"><div class="card"><div class="card-head">Salary Breakdown</div><table class="pay-table"><tr><th>Description</th><th class="right">Amount (SGD)</th></tr>
-<tr><td><strong>Base Salary</strong></td><td class="right"><?php echo luxcraft_pdf_money($payslip['base_salary']); ?></td></tr>
-<?php if((float)$payslip['commission'] != 0){ ?><tr><td><strong>Commission</strong></td><td class="right"><?php echo luxcraft_pdf_money($payslip['commission']); ?></td></tr><?php } ?>
-<?php if((float)$payslip['allowances'] != 0){ ?><tr><td><strong>Allowances</strong></td><td class="right"><?php echo luxcraft_pdf_money($payslip['allowances']); ?></td></tr><?php } ?>
-<?php if((float)$payslip['deductions'] != 0){ ?><tr><td><strong>Other Deductions</strong></td><td class="right">-<?php echo luxcraft_pdf_money($payslip['deductions']); ?></td></tr><?php } ?>
-<tr><td><strong>Employee CPF Contribution</strong></td><td class="right">-<?php echo luxcraft_pdf_money($payslip['cpf_employee']); ?></td></tr></table></div></td>
-<td class="salary-right"><div class="summary-panel"><span class="label">Net Salary / Take Home Pay</span><div class="net-pay"><span class="label">Amount Payable</span><br><span class="net-amount"><?php echo luxcraft_pdf_money($payslip['take_home_pay']); ?></span></div><table class="summary-table"><tr><td>Employer CPF Contribution</td><td class="right"><strong><?php echo luxcraft_pdf_money($payslip['cpf_employer']); ?></strong></td></tr><tr><td>Total CPF Contribution</td><td class="right"><strong><?php echo luxcraft_pdf_money($payslip['cpf_total']); ?></strong></td></tr></table></div></td></tr></table>
-<?php if($payslip['remarks']){ ?><div class="card remarks"><div class="card-head">Remarks</div><?php echo nl2br($payslip['remarks']); ?></div><?php } ?>
-<table class="footer-table"><tr><td>This is a computer-generated payslip. No signature is required.</td></tr></table>
-</div></div></body></html>
+<style>
+body{font-family:dejavusans,sans-serif;font-size:8.5pt;line-height:1.35;color:#263238}
+table{width:100%;border-collapse:collapse}td,th{vertical-align:top}.hero{background-color:#edf5f4;border:1px solid #d8e4e2}.hero td{padding:12px}.logo{height:42px}.eyebrow{font-size:7pt;color:#668083;text-transform:uppercase;letter-spacing:1px}.company{font-family:dejavuserif,serif;font-size:18pt;color:#123f44;font-weight:bold}.title{font-size:22pt;color:#123f44;font-weight:bold}.muted{color:#68777a}.right{text-align:right}.center{text-align:center}.section{margin-top:12px}.section-title{padding:7px 8px;background-color:#123f44;color:#fff;font-size:9pt;font-weight:bold;text-transform:uppercase;letter-spacing:.6px}.info{border:1px solid #d7dfdf}.info td{width:25%;padding:7px 8px;border-bottom:1px solid #e7ecec}.label{font-size:7pt;color:#78878a;text-transform:uppercase}.value{font-weight:bold;color:#263238}.lines th{padding:7px 8px;background-color:#f0f4f3;color:#526568;border-bottom:1px solid #d7dfdf;font-size:7pt;text-transform:uppercase}.lines td{padding:7px 8px;border-bottom:1px solid #e3e8e8}.total td{font-weight:bold;background-color:#f7f9f8}.net{margin-top:12px;background-color:#0f5b63;color:#fff;border:1px solid #0a454b}.net td{padding:11px}.net-label{font-size:8pt;text-transform:uppercase}.net-value{font-family:dejavuserif,serif;font-size:20pt;font-weight:bold}.summary td{width:25%;padding:8px;border:1px solid #d7dfdf}.footer{margin-top:15px;padding-top:8px;border-top:1px solid #cfd8d7;color:#6c797b;font-size:7pt}
+</style>
+<table class="hero"><tr>
+<td width="58%">
+<?php if ($data['company_logo']) { ?><img class="logo" src="<?php echo $e($data['company_logo']); ?>"><br><?php } ?>
+<span class="eyebrow">Official Payroll Record</span><br>
+<span class="company"><?php echo $e($data['company_name']); ?></span><br>
+<span class="muted"><?php echo $e($data['company_address']); ?></span><br>
+<?php if ($data['company_uen']) { ?><strong>UEN:</strong> <?php echo $e($data['company_uen']); ?><?php } ?>
+</td>
+<td width="42%" class="right"><span class="title">PAYSLIP</span><br><br>
+<span class="label">Payroll Month</span><br><strong><?php echo $e($data['payroll_month']); ?></strong><br><br>
+<span class="label">Payslip No.</span><br><strong><?php echo $e($data['payslip_no']); ?></strong>
+</td></tr></table>
+
+<div class="section-title">Employee &amp; Payroll Information</div>
+<table class="info">
+<tr><td><span class="label">Employee Name</span><br><span class="value"><?php echo $e($data['employee_name']); ?></span></td><td><span class="label">Employee ID</span><br><span class="value"><?php echo $e($data['employee_id']); ?></span></td><td><span class="label">Job Title</span><br><span class="value"><?php echo $e($data['job_title']); ?></span></td><td><span class="label">Department</span><br><span class="value"><?php echo $e($data['department']); ?></span></td></tr>
+<tr><td><span class="label">Date Joined</span><br><span class="value"><?php echo $e($data['date_joined']); ?></span></td><td><span class="label">NRIC / FIN</span><br><span class="value"><?php echo $e($data['nric_fin']); ?></span></td><td><span class="label">Pay Date</span><br><span class="value"><?php echo $e($data['pay_date']); ?></span></td><td><span class="label">Payment / Status</span><br><span class="value"><?php echo $e($data['payment_mode']); ?> · <?php echo $e($data['status']); ?></span></td></tr>
+</table>
+
+<table class="section"><tr><td width="49%">
+<div class="section-title">Earnings</div><table class="lines"><tr><th width="68%">Description</th><th width="32%" class="right">Amount</th></tr>
+<?php foreach ($data['earnings'] as $line) { ?><tr><td><?php echo $e($line['description']); ?></td><td class="right"><?php echo $e($money($line['amount'])); ?></td></tr><?php } ?>
+<tr class="total"><td>Gross Earnings</td><td class="right"><?php echo $e($money($data['gross_earnings'])); ?></td></tr></table>
+</td><td width="2%"></td><td width="49%">
+<div class="section-title">Deductions</div><table class="lines"><tr><th width="68%">Description</th><th width="32%" class="right">Amount</th></tr>
+<?php if (!$data['deductions']) { ?><tr><td>Nil</td><td class="right"><?php echo $e($money(0)); ?></td></tr><?php } ?>
+<?php foreach ($data['deductions'] as $line) { ?><tr><td><?php echo $e($line['description']); ?></td><td class="right"><?php echo $e($money($line['amount'])); ?></td></tr><?php } ?>
+<tr class="total"><td>Total Deductions</td><td class="right"><?php echo $e($money($data['total_deductions'])); ?></td></tr></table>
+</td></tr></table>
+
+<table class="net"><tr><td width="55%"><span class="net-label">Net Pay / Amount Payable</span><br><span class="muted" style="color:#c9dddd">After employee deductions and CPF</span></td><td width="45%" class="right"><span class="net-value"><?php echo $e($money($data['net_pay'])); ?></span></td></tr></table>
+
+<table class="summary"><tr><td><span class="label">Employee CPF</span><br><strong><?php echo $e($money($data['employee_cpf'])); ?></strong></td><td><span class="label">Employer CPF</span><br><strong><?php echo $e($money($data['employer_cpf'])); ?></strong></td><td><span class="label">YTD Gross</span><br><strong><?php echo $e($money($data['ytd_gross'])); ?></strong></td><td><span class="label">YTD CPF</span><br><strong><?php echo $e($money($data['ytd_cpf'])); ?></strong></td></tr></table>
+
+<div class="section-title">Company &amp; Record Details</div><table class="info"><tr><td><span class="label">CPF Submission Ref.</span><br><span class="value"><?php echo $e($data['company_cpf_reference']); ?></span></td><td><span class="label">Company Bank</span><br><span class="value"><?php echo $e($data['company_bank']); ?></span></td><td><span class="label">Prepared By</span><br><span class="value"><?php echo $e($data['prepared_by']); ?></span></td><td><span class="label">Currency</span><br><span class="value"><?php echo $e($data['currency']); ?></span></td></tr></table>
+<?php if ($data['remarks']) { ?><div class="footer"><strong>Remarks:</strong> <?php echo nl2br($e($data['remarks'])); ?></div><?php } ?>
+<div class="footer center">This is a computer-generated payslip and forms part of the company's payroll records. No signature is required.</div>
