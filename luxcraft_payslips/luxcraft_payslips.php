@@ -3,12 +3,14 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 /*
 Module Name: LuxCraft Payroll
-Description: Staff Payroll tab, payslip generation, CPF rounding, and PDF downloads for Perfex CRM.
-Version: 50.8.1
+Description: Staff payroll profiles, payslip generation, CPF rounding, browser viewing, and printing for Perfex CRM.
+Version: 51.3.0
 Requires at least: 2.9.*
 */
 
 define('LUXCRAFT_PAYSLIPS_MODULE_NAME', 'luxcraft_payslips');
+
+register_language_files(LUXCRAFT_PAYSLIPS_MODULE_NAME, [LUXCRAFT_PAYSLIPS_MODULE_NAME]);
 
 hooks()->add_action('admin_init', 'luxcraft_payslips_permissions');
 hooks()->add_action('admin_init', 'luxcraft_payslips_admin_menu');

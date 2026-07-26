@@ -127,9 +127,3 @@ function luxcraft_company_favicon_url()
 
     return base_url('uploads/company/' . $favicon);
 }
-
-
-function luxcraft_pdf_money($amount)
-{
-    return '$' . number_format((float)$amount, 2);
-}

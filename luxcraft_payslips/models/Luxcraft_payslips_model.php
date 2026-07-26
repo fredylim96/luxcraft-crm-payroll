@@ -73,6 +73,10 @@ class Luxcraft_payslips_model extends App_Model
             $this->db->where('p.salary_month', $filters['salary_month']);
         }
 
+        if (!empty($filters['status'])) {
+            $this->db->where('p.status', $filters['status']);
+        }
+
         $this->db->order_by('p.salary_month', 'DESC');
         $this->db->order_by('p.id', 'DESC');
 
@@ -91,6 +95,7 @@ class Luxcraft_payslips_model extends App_Model
 
     public function create($data)
     {
+        $data = $this->add_record_snapshots($data);
         $data['created_by'] = get_staff_user_id();
         $data['created_at'] = date('Y-m-d H:i:s');
         $data['updated_at'] = date('Y-m-d H:i:s');
@@ -103,7 +108,15 @@ class Luxcraft_payslips_model extends App_Model
             return false;
         }
 
-        return $this->db->insert_id();
+        $id = $this->db->insert_id();
+        if (empty($data['payslip_no'])) {
+            $month = preg_replace('/[^0-9]/', '', isset($data['salary_month']) ? $data['salary_month'] : date('Y-m'));
+            $this->db->where('id', $id)->update(db_prefix().'luxcraft_payslips', [
+                'payslip_no' => 'LC-PS-' . $month . '-' . str_pad((string)$id, 5, '0', STR_PAD_LEFT),
+            ]);
+        }
+
+        return $id;
     }
 
     public function update($id, $data)
@@ -152,5 +165,37 @@ class Luxcraft_payslips_model extends App_Model
             'paid_at' => null,
             'updated_at' => date('Y-m-d H:i:s'),
         ]);
+    }
+
+    /**
+     * Freeze mutable issuer/staff values at creation time. Perfex has no core
+     * NRIC/FIN field, so integrations may still explicitly provide nric_fin.
+     */
+    private function add_record_snapshots(array $data)
+    {
+        $staffId = isset($data['staff_id']) ? (int)$data['staff_id'] : 0;
+        $staff = $staffId
+            ? $this->db->where('staffid', $staffId)->get(db_prefix().'staff')->row_array()
+            : [];
+
+        $defaults = [
+            'employee_id'          => $staffId ?: null,
+            'date_joined'          => !empty($staff['datecreated']) ? substr($staff['datecreated'], 0, 10) : null,
+            'currency'             => 'SGD',
+            'company_name'         => get_option('companyname') ?: 'LuxCraft Pte. Ltd.',
+            'company_uen'          => get_option('company_vat'),
+            'company_address'      => trim(get_option('companyaddress') . ' ' . get_option('companycity') . ' ' . get_option('companyzip')),
+            'company_cpf_reference'=> get_option('luxcraft_company_cpf_reference'),
+            'company_bank'         => get_option('luxcraft_company_bank'),
+            'prepared_by'          => function_exists('get_staff_full_name') ? get_staff_full_name(get_staff_user_id()) : '',
+        ];
+
+        foreach ($defaults as $field => $value) {
+            if (!array_key_exists($field, $data) || $data[$field] === '' || $data[$field] === null) {
+                $data[$field] = $value;
+            }
+        }
+
+        return $data;
     }
 }
