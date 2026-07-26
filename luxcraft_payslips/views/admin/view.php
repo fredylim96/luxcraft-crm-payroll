@@ -154,6 +154,10 @@
     border: 2px solid #0f5b63 !important;
   }
 
+  .luxcraft-print-area .luxcraft-payslip-net {
+    border: 2px solid #6f9ca0 !important;
+  }
+
   @page {
     size: A4 portrait;
     margin: 6mm;
