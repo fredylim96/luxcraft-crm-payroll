@@ -91,6 +91,7 @@
 
   .luxcraft-actions,
   .luxcraft-actions *,
+  .luxcraft-print-area > hr,
   #side-menu,
   #header,
   .navbar,
@@ -131,71 +132,24 @@
     width: 100% !important;
     margin-left: 0 !important;
     margin-right: 0 !important;
-  }@page {
+  }
+
+  .luxcraft-print-area .luxcraft-payslip-sheet {
+    width: 147.06% !important;
+    max-width: 147.06% !important;
+    margin: 0 !important;
+    zoom: 0.68;
+    page-break-inside: avoid !important;
+    break-inside: avoid-page !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  @page {
     size: A4 portrait;
-    margin: 10mm;
+    margin: 6mm;
   }
 }
 </style>
-
-
-
-
-<script>
-(function(){
-  function mmToPx(mm) {
-    var el = document.createElement('div');
-    el.style.width = mm + 'mm';
-    el.style.position = 'absolute';
-    el.style.visibility = 'hidden';
-    document.body.appendChild(el);
-    var px = el.offsetWidth;
-    document.body.removeChild(el);
-    return px;
-  }
-
-  function clearPrintPageNumbers() {
-    document.querySelectorAll('.luxcraft-print-page-number').forEach(function(el){
-      el.parentNode.removeChild(el);
-    });
-  }
-
-  function addPrintPageNumbers() {
-    clearPrintPageNumbers();
-
-    var area = document.querySelector('.luxcraft-print-area');
-    if (!area) return;
-
-    // A4 height minus @page top/bottom margins: 297mm - 20mm.
-    var printableHeight = mmToPx(277);
-    var contentHeight = Math.max(area.scrollHeight, area.offsetHeight);
-    var pages = Math.max(1, Math.ceil(contentHeight / printableHeight));
-
-    for (var i = 1; i <= pages; i++) {
-      var pageNo = document.createElement('div');
-      pageNo.className = 'luxcraft-print-page-number';
-      pageNo.textContent = i + ' / ' + pages;
-      pageNo.style.top = ((i * printableHeight) - 22) + 'px';
-      area.appendChild(pageNo);
-    }
-  }
-
-  if (window.matchMedia) {
-    var mediaQueryList = window.matchMedia('print');
-    mediaQueryList.addListener(function(mql) {
-      if (mql.matches) {
-        addPrintPageNumbers();
-      } else {
-        setTimeout(clearPrintPageNumbers, 300);
-      }
-    });
-  }
-
-  window.addEventListener('beforeprint', addPrintPageNumbers);
-  window.addEventListener('afterprint', function(){
-    setTimeout(clearPrintPageNumbers, 300);
-  });
-})();
-</script>
 
 <?php init_tail(); ?>
