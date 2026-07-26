@@ -9,6 +9,9 @@
         <button type="button" class="btn btn-default" onclick="window.print();">
           <i class="fa fa-print"></i> Print Payslip
         </button>
+        <a href="<?php echo admin_url('luxcraft_payslips/download/'.$payslip['id']); ?>" class="btn btn-default">
+          <i class="fa fa-file-pdf-o"></i> Download PDF
+        </a>
 
         <?php if((is_admin() || has_permission('luxcraft_payslips', '', 'edit') || has_permission('luxcraft_payslips', '', 'mark_paid')) && empty($is_employee_view)){ ?>
           <?php if($payslip['status']!='paid'){ ?>
@@ -93,7 +96,7 @@
   .navbar,
   .screen-options-area,
   .btn,
-  footer,
+  body > footer,
   .modal,
   .alert {
     display: none !important;

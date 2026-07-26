@@ -5,6 +5,8 @@ $employee_name = !empty($payslip['payroll_name']) ? $payslip['payroll_name'] : $
 $money = function ($amount) {
     return app_format_money($amount, 'SGD');
 };
+$is_paid = isset($payslip['status']) && $payslip['status'] === 'paid';
+$status_label = $is_paid ? 'Salary Credited' : 'Pending Salary Payment';
 ?>
 <main class="luxcraft-payslip-sheet" aria-label="Payslip for <?php echo $employee_name; ?>">
   <header class="luxcraft-payslip-hero">
@@ -21,7 +23,7 @@ $money = function ($amount) {
           <div class="luxcraft-payslip-uen">UEN: 202343751W</div>
         </div>
       </div>
-      <div class="luxcraft-payslip-pill"><span></span>Payroll statement</div>
+      <div class="luxcraft-payslip-pill <?php echo $is_paid ? 'luxcraft-payslip-pill-paid' : 'luxcraft-payslip-pill-pending'; ?>"><span></span><?php echo $status_label; ?></div>
       <div>
         <h2><?php echo luxcraft_format_salary_month($payslip['salary_month']); ?> Payslip</h2>
         <p>A clear summary of your monthly salary, statutory contributions and payment details.</p>

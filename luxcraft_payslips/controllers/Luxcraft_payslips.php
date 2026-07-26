@@ -362,7 +362,33 @@ class Luxcraft_payslips extends AdminController
 
     public function download($id)
     {
-        show_404();
+        $payslip = $this->luxcraft_payslips_model->get($id);
+        if (!$payslip) {
+            show_404();
+        }
+
+        if ($payslip['staff_id'] == get_staff_user_id()) {
+            if (!$this->can_view_own_payslips()) {
+                access_denied('Payslip');
+            }
+            if (!$this->can_view_all_payslips() && $payslip['status'] != 'paid') {
+                access_denied('Payslip not available until paid');
+            }
+        } elseif (!$this->can_view_all_payslips()) {
+            access_denied('Payslip');
+        }
+
+        $html = $this->load->view('luxcraft_payslips/templates/pdf', ['payslip' => $payslip], true);
+        $employee_name = !empty($payslip['payroll_name'])
+            ? $payslip['payroll_name']
+            : $payslip['firstname'].' '.$payslip['lastname'];
+        $filename = 'Payslip_'.$payslip['salary_month'].'_'.$employee_name.'.pdf';
+        $filename = preg_replace('/[^A-Za-z0-9_.-]+/', '_', $filename);
+
+        $pdf = $this->make_pdf_document('Payslip - '.$employee_name.' - '.$payslip['salary_month']);
+        $pdf->writeHTML($html, true, false, true, false, '');
+        $pdf->Output($filename, 'D');
+        exit;
     }
 
     public function bulk_download()
