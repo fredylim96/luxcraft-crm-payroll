@@ -27,17 +27,20 @@ $status_label = $is_paid ? 'Salary Credited' : 'Pending Salary Payment';
       <div class="luxcraft-payslip-pill <?php echo $is_paid ? 'luxcraft-payslip-pill-paid' : 'luxcraft-payslip-pill-pending'; ?>"><span></span><?php echo $status_label; ?></div>
       <div>
         <h2><?php echo luxcraft_format_salary_month($payslip['salary_month']); ?> Payslip</h2>
-        <p>A clear summary of your monthly salary, statutory contributions and payment details.</p>
       </div>
     </div>
 
     <aside class="luxcraft-payslip-period">
       <div class="luxcraft-payslip-eyebrow">Payroll Summary</div>
       <div class="luxcraft-payslip-period-grid">
-        <div><span>Salary Month</span><strong><?php echo luxcraft_format_salary_month($payslip['salary_month']); ?></strong></div>
-        <div><span>Payment Date</span><strong><?php echo _d($payslip['payment_date']); ?></strong></div>
-        <div><span>Currency</span><strong>SGD</strong></div>
-        <div><span>Payment Method</span><strong><?php echo $payslip['payment_method']; ?></strong></div>
+        <div class="luxcraft-payslip-period-column">
+          <div><span>Salary Month</span><strong><?php echo luxcraft_format_salary_month($payslip['salary_month']); ?></strong></div>
+          <div><span>Payment Date</span><strong><?php echo _d($payslip['payment_date']); ?></strong></div>
+        </div>
+        <div class="luxcraft-payslip-period-column">
+          <div><span>Currency</span><strong>SGD</strong></div>
+          <div><span>Payment Method</span><strong><?php echo $payslip['payment_method']; ?></strong></div>
+        </div>
       </div>
     </aside>
   </header>
@@ -94,7 +97,6 @@ $status_label = $is_paid ? 'Salary Credited' : 'Pending Salary Payment';
 
     <footer class="luxcraft-payslip-document-footer">
       <p>This is a computer-generated payslip. No signature is required.</p>
-      <span>Confidential payroll record</span>
     </footer>
   </div>
 </main>
