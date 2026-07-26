@@ -2,9 +2,8 @@
 <?php
 $logo_url = luxcraft_company_favicon_url();
 $employee_name = !empty($payslip['payroll_name']) ? $payslip['payroll_name'] : $payslip['firstname'].' '.$payslip['lastname'];
-$is_pdf = !empty($is_pdf);
-$money = function ($amount) use ($is_pdf) {
-    return $is_pdf ? luxcraft_pdf_money($amount) : app_format_money($amount, 'SGD');
+$money = function ($amount) {
+    return app_format_money($amount, 'SGD');
 };
 $is_paid = isset($payslip['status']) && $payslip['status'] === 'paid';
 $status_label = $is_paid ? 'Salary Credited' : 'Pending Salary Payment';

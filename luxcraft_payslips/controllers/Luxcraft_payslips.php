@@ -360,67 +360,6 @@ class Luxcraft_payslips extends AdminController
         redirect(admin_url('luxcraft_payslips'));
     }
 
-    public function download($id)
-    {
-        $payslip = $this->luxcraft_payslips_model->get($id);
-        if (!$payslip) {
-            show_404();
-        }
-
-        if ($payslip['staff_id'] == get_staff_user_id()) {
-            if (!$this->can_view_own_payslips()) {
-                access_denied('Payslip');
-            }
-            if (!$this->can_view_all_payslips() && $payslip['status'] != 'paid') {
-                access_denied('Payslip not available until paid');
-            }
-        } elseif (!$this->can_view_all_payslips()) {
-            access_denied('Payslip');
-        }
-
-        $data = luxcraft_payslip_pdf_data($payslip);
-        $this->load->library('luxcraft_payslips/Luxcraft_payslip_pdf');
-        $this->luxcraft_payslip_pdf->render($data, 'D', luxcraft_payslip_filename($data));
-        exit;
-    }
-
-    public function bulk_download()
-    {
-        if (!$this->can_view_all_payslips()) access_denied('Payslip');
-
-        $ids = $this->input->post('ids');
-        if (!$ids) {
-            set_alert('warning', 'Please select at least one payslip.');
-            redirect(admin_url('luxcraft_payslips'));
-        }
-
-        if (!class_exists('ZipArchive')) {
-            show_error('The PHP zip extension is required for bulk downloads.', 500);
-        }
-        $this->load->library('luxcraft_payslips/Luxcraft_payslip_pdf');
-        $zip_path = tempnam(sys_get_temp_dir(), 'luxcraft_payslips_');
-        $zip = new ZipArchive();
-        if ($zip->open($zip_path, ZipArchive::CREATE | ZipArchive::OVERWRITE) !== true) {
-            show_error('Unable to create the payslip archive.', 500);
-        }
-
-        foreach ($ids as $id) {
-            $payslip = $this->luxcraft_payslips_model->get($id);
-            if (!$payslip) continue;
-            $data = luxcraft_payslip_pdf_data($payslip);
-            $zip->addFromString(
-                luxcraft_payslip_filename($data),
-                $this->luxcraft_payslip_pdf->render($data, 'S', luxcraft_payslip_filename($data))
-            );
-        }
-
-        $zip->close();
-        force_download('LuxCraft_Payslips_' . date('Ymd_His') . '.zip', file_get_contents($zip_path));
-        @unlink($zip_path);
-        exit;
-    }
-
-
     public function debug()
     {
         if (!is_admin()) {
