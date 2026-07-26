@@ -145,6 +145,15 @@
     print-color-adjust: exact !important;
   }
 
+  .luxcraft-print-area .luxcraft-payslip-pill {
+    display: none !important;
+    visibility: hidden !important;
+  }
+
+  .luxcraft-print-area .luxcraft-payslip-summary {
+    border: 2px solid #0f5b63 !important;
+  }
+
   @page {
     size: A4 portrait;
     margin: 6mm;
