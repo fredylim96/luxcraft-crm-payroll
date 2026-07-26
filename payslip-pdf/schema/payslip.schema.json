@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://luxcraft.example/schemas/payslip.schema.json",
+  "title": "LuxCraft payslip payload",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["company_name", "company_uen", "company_address", "employee_name", "employee_id", "job_title", "department", "date_joined", "nric_fin", "payslip_no", "pay_date", "payroll_month", "payment_mode", "status", "earnings", "deductions", "gross_earnings", "total_deductions", "employer_cpf", "employee_cpf", "ytd_gross", "ytd_cpf", "net_pay", "currency", "prepared_by"],
+  "properties": {
+    "company_name": {"type": "string", "minLength": 1}, "company_uen": {"type": "string", "minLength": 1}, "company_address": {"type": "string", "minLength": 1},
+    "employee_name": {"type": "string", "minLength": 1}, "employee_id": {"type": "string", "minLength": 1}, "job_title": {"type": "string", "minLength": 1}, "department": {"type": "string", "minLength": 1}, "date_joined": {"type": "string", "minLength": 1}, "nric_fin": {"type": "string", "minLength": 1},
+    "payslip_no": {"type": "string", "minLength": 1}, "pay_date": {"type": "string", "minLength": 1}, "payroll_month": {"type": "string", "minLength": 1}, "payment_mode": {"type": "string", "minLength": 1}, "status": {"type": "string", "minLength": 1}, "currency": {"type": "string", "pattern": "^[A-Za-z]{3}$"}, "prepared_by": {"type": "string", "minLength": 1},
+    "logo_url": {"type": "string"}, "generated_at": {"type": "string"},
+    "earnings": {"type": "array", "items": {"$ref": "#/$defs/lineItem"}}, "deductions": {"type": "array", "items": {"$ref": "#/$defs/lineItem"}},
+    "gross_earnings": {"type": "number"}, "total_deductions": {"type": "number"}, "employer_cpf": {"type": "number"}, "employee_cpf": {"type": "number"}, "ytd_gross": {"type": "number"}, "ytd_cpf": {"type": "number"}, "net_pay": {"type": "number"}
+  },
+  "$defs": {"lineItem": {"type": "object", "additionalProperties": false, "required": ["description", "amount"], "properties": {"description": {"type": "string", "minLength": 1}, "amount": {"type": "number"}}}}
+}

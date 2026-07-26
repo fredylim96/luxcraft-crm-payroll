@@ -1,5 +1,9 @@
 # LuxCraft Payroll for Perfex CRM
 
+## Playwright PDF workflow
+
+A production-oriented Node.js/Playwright PDF renderer is available in [`payslip-pdf/`](payslip-pdf/README.md). It provides the reusable A4 HTML template, runtime data mapper, JSON Schema, example payroll payload, CLI, and `generatePayslipPdf(data)` API while leaving the existing Perfex/TCPDF download path intact for backward compatibility.
+
 ## Installation
 
 Perfex requires the module directory and its bootstrap PHP file to have the same name. This repository therefore keeps all installable files inside `luxcraft_payslips/`, with the entry point at `luxcraft_payslips/luxcraft_payslips.php`.

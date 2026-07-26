@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>{{payslip_no}} — {{employee_name}}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{--ink:#152127;--muted:#68747a;--teal:#0f5b63;--teal-light:#edf5f4;--gold:#b89552;--line:#dce3e1;--paper:#fff;--canvas:#edf0ef}
+    *{box-sizing:border-box}
+    @page{size:A4 portrait;margin:0}
+    html,body{margin:0;padding:0;background:var(--canvas);color:var(--ink);font-family:Inter,Arial,sans-serif;font-size:10px;line-height:1.45;-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
+    body{padding:12mm 0}.sheet{display:flex;flex-direction:column;width:210mm;min-height:297mm;margin:auto;background:var(--paper);box-shadow:0 12px 42px rgba(18,34,38,.13);overflow:hidden}
+    .hero{position:relative;display:grid;grid-template-columns:1.25fr .75fr;gap:12mm;padding:13mm 15mm 10mm;background:linear-gradient(135deg,#f4f8f7 0%,#e7f1ef 62%,#d8e8e5 100%);border-bottom:1px solid #ccdad7}
+    .hero:after{content:"";position:absolute;right:-25mm;top:-38mm;width:85mm;height:85mm;border:1px solid rgba(15,91,99,.11);border-radius:50%}
+    .brand-row{display:flex;align-items:center;gap:5mm}.logo{width:17mm;height:17mm;object-fit:contain;border-radius:3mm;background:#fff;padding:2mm}.logo-mark{display:grid;place-items:center;color:#fff;background:var(--teal);font:700 24px Playfair Display,Georgia,serif;padding:0}
+    .eyebrow,.field-label{color:var(--muted);font-size:7.5px;font-weight:700;letter-spacing:.13em;text-transform:uppercase}.company{margin:1mm 0 0;font:700 21px/1.1 Playfair Display,Georgia,serif}.uen{margin-top:1mm;color:var(--muted);font-size:8.5px}.document-title{margin:8mm 0 1mm;font:700 27px/1 Playfair Display,Georgia,serif}.period{color:var(--teal);font-size:11px;font-weight:600}
+    .status{display:inline-flex;align-items:center;gap:2mm;margin-top:5mm;padding:2mm 3.5mm;border-radius:99px;background:#fff0bd;color:#775900;font-size:8px;font-weight:700;text-transform:uppercase}.status:before{content:"";width:1.6mm;height:1.6mm;border-radius:50%;background:currentColor}.status-paid,.status-salary-credited{background:#dcefe2;color:#24643a}
+    .hero-meta{z-index:1;align-self:center;padding:6mm;background:rgba(255,255,255,.82);border:1px solid rgba(15,91,99,.16);border-radius:4mm;box-shadow:0 6px 20px rgba(15,91,99,.08)}.hero-meta h2{margin:0 0 4mm;font:700 15px Playfair Display,Georgia,serif}.meta-grid{display:grid;grid-template-columns:1fr 1fr;gap:4mm}.field-value{display:block;margin-top:.8mm;font-size:9px;font-weight:600;overflow-wrap:anywhere}
+    .content{display:flex;flex:1;flex-direction:column;padding:9mm 15mm 8mm}.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:5mm;margin-bottom:6mm}.card{border:1px solid var(--line);border-radius:3.5mm;background:#fff;padding:5mm;break-inside:avoid}.card-title{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:4mm}.card-title h2{margin:0;font:700 13px Playfair Display,Georgia,serif}.card-title span{color:#90999d;font-size:7.5px}.detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:3.5mm 5mm}
+    .pay-grid{display:grid;grid-template-columns:1.28fr .72fr;gap:5mm;align-items:stretch;break-inside:avoid}.breakdown{padding:0;overflow:hidden}.breakdown .card-title{padding:5mm 5mm 0}table{width:100%;border-collapse:collapse;table-layout:fixed}th,td{padding:2.8mm 5mm;border-top:1px solid #e8eceb}th{color:var(--muted);background:#fafbfa;font-size:7.5px;letter-spacing:.08em;text-align:left;text-transform:uppercase}td{font-size:9px}.amount{text-align:right;font-variant-numeric:tabular-nums lining-nums;white-space:nowrap}.group td{padding-top:3.5mm;color:var(--teal);font-size:7.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}.total td{font-weight:700;background:#f4f7f6}
+    .summary{display:flex;flex-direction:column;padding:6mm;color:#fff;background:linear-gradient(145deg,#0d5057,#126a72);border:0;border-radius:3.5mm;box-shadow:0 7px 20px rgba(15,91,99,.18)}.summary .field-label{color:#bed2d4}.net-box{margin:4mm 0;padding:4mm;border:1px solid rgba(255,255,255,.22);border-radius:2.5mm;background:rgba(255,255,255,.1)}.net-box strong{display:block;margin-top:1mm;font:700 20px Playfair Display,Georgia,serif;font-variant-numeric:tabular-nums}.summary-row{display:flex;justify-content:space-between;gap:3mm;padding:2.8mm 0;border-bottom:1px solid rgba(255,255,255,.16);font-size:8.5px}.summary-row strong{font-variant-numeric:tabular-nums;white-space:nowrap}
+    .footer{display:flex;justify-content:space-between;align-items:flex-end;gap:8mm;margin-top:auto;padding-top:6mm;color:var(--muted);border-top:1px solid var(--line);font-size:7.5px}.footer strong{color:var(--teal)}
+    @media print{html,body{width:210mm;height:297mm;background:#fff}body{padding:0}.sheet{height:297mm;min-height:297mm;box-shadow:none}.hero{padding-top:12mm}.content{padding-bottom:7mm}}
+  </style>
+</head>
+<body>
+<main class="sheet" aria-label="Payslip for {{employee_name}}">
+  <header class="hero">
+    <section>
+      <div class="brand-row">
+        {{{logo_markup}}}
+        <div><div class="eyebrow">Payslip statement</div><h1 class="company">{{company_name}}</h1><div class="uen">UEN: {{company_uen}}</div></div>
+      </div>
+      <h2 class="document-title">Payslip</h2><div class="period">{{payroll_month}}</div>
+      <div class="status status-{{status_class}}">{{status}}</div>
+    </section>
+    <aside class="hero-meta"><h2>Payroll Summary</h2><div class="meta-grid">
+      <div><span class="field-label">Payslip no.</span><strong class="field-value">{{payslip_no}}</strong></div>
+      <div><span class="field-label">Pay date</span><strong class="field-value">{{pay_date}}</strong></div>
+      <div><span class="field-label">Currency</span><strong class="field-value">{{currency_upper}}</strong></div>
+      <div><span class="field-label">Payment mode</span><strong class="field-value">{{payment_mode}}</strong></div>
+    </div></aside>
+  </header>
+  <div class="content">
+    <section class="info-grid">
+      <article class="card"><div class="card-title"><h2>Employee Information</h2><span>Employee record</span></div><div class="detail-grid">
+        <div><span class="field-label">Employee name</span><strong class="field-value">{{employee_name}}</strong></div><div><span class="field-label">Employee ID</span><strong class="field-value">{{employee_id}}</strong></div>
+        <div><span class="field-label">Job title</span><strong class="field-value">{{job_title}}</strong></div><div><span class="field-label">Department</span><strong class="field-value">{{department}}</strong></div>
+        <div><span class="field-label">Date joined</span><strong class="field-value">{{date_joined}}</strong></div><div><span class="field-label">NRIC / FIN</span><strong class="field-value">{{nric_fin}}</strong></div>
+      </div></article>
+      <article class="card"><div class="card-title"><h2>Company Information</h2><span>Payroll issuer</span></div><div class="detail-grid">
+        <div><span class="field-label">Legal entity</span><strong class="field-value">{{company_name}}</strong></div><div><span class="field-label">UEN</span><strong class="field-value">{{company_uen}}</strong></div>
+        <div style="grid-column:1/-1"><span class="field-label">Registered address</span><strong class="field-value">{{company_address}}</strong></div><div><span class="field-label">Prepared by</span><strong class="field-value">{{prepared_by}}</strong></div>
+      </div></article>
+    </section>
+    <section class="pay-grid">
+      <article class="card breakdown"><div class="card-title"><h2>Salary Breakdown</h2><span>{{payroll_month}}</span></div><table aria-label="Earnings and deductions"><thead><tr><th>Description</th><th class="amount">Amount ({{currency_upper}})</th></tr></thead><tbody>
+        <tr class="group"><td colspan="2">Earnings</td></tr>{{{earnings_rows}}}
+        <tr class="total"><td>Gross earnings</td><td class="amount">{{gross_earnings_formatted}}</td></tr>
+        <tr class="group"><td colspan="2">Deductions</td></tr>{{{deductions_rows}}}
+        <tr><td>Employee CPF contribution</td><td class="amount">−{{employee_cpf_formatted}}</td></tr>
+        <tr class="total"><td>Total deductions</td><td class="amount">−{{total_deductions_formatted}}</td></tr>
+      </tbody></table></article>
+      <aside class="summary"><span class="field-label">Net salary / take-home pay</span><div class="net-box"><span class="field-label">Amount payable</span><strong>{{net_pay_formatted}}</strong></div>
+        <div class="summary-row"><span>Gross earnings</span><strong>{{gross_earnings_formatted}}</strong></div><div class="summary-row"><span>Employer CPF</span><strong>{{employer_cpf_formatted}}</strong></div><div class="summary-row"><span>YTD gross</span><strong>{{ytd_gross_formatted}}</strong></div><div class="summary-row"><span>YTD CPF</span><strong>{{ytd_cpf_formatted}}</strong></div>
+      </aside>
+    </section>
+    <footer class="footer"><div><strong>{{company_name}}</strong><br>{{company_address}}</div><div style="text-align:right">This is a computer-generated payslip.<br>No signature is required.</div></footer>
+  </div>
+</main>
+</body></html>

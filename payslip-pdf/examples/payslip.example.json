@@ -1,0 +1,9 @@
+{
+  "company_name": "LuxCraft Pte. Ltd.", "company_uen": "202343751W", "company_address": "60 Paya Lebar Road, #07-54 Paya Lebar Square, Singapore 409051",
+  "employee_name": "Amelia Tan", "employee_id": "LC-0042", "job_title": "Senior Design Consultant", "department": "Interior Design", "date_joined": "15 January 2024", "nric_fin": "S****123A",
+  "payslip_no": "LC-PS-2026-07-0042", "pay_date": "31 July 2026", "payroll_month": "July 2026", "payment_mode": "GIRO", "status": "Salary Credited",
+  "earnings": [{"description": "Base Salary", "amount": 6200}, {"description": "Commission", "amount": 875.5}, {"description": "Transport Allowance", "amount": 180}],
+  "deductions": [{"description": "Unpaid Leave", "amount": 120}],
+  "gross_earnings": 7255.5, "total_deductions": 1571, "employer_cpf": 1117, "employee_cpf": 1451, "ytd_gross": 46842.75, "ytd_cpf": 15639, "net_pay": 5684.5,
+  "currency": "SGD", "prepared_by": "Payroll Administration"
+}

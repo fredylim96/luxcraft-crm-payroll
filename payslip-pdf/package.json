@@ -1,0 +1,14 @@
+{
+  "name": "@luxcraft/payslip-pdf",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Production A4 payslip renderer for LuxCraft CRM",
+  "type": "module",
+  "scripts": {
+    "generate": "node src/cli.js",
+    "test": "node --test"
+  },
+  "dependencies": {
+    "playwright": "1.55.0"
+  }
+}
