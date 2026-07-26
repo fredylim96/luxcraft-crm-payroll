@@ -28,7 +28,7 @@ Perfex requires the module directory and bootstrap filename to match. The instal
 
 ## Why the HTML has a dedicated PDF view
 
-TCPDF's `writeHTML()` supports a useful but limited subset of browser HTML/CSS. The browser design cannot be passed through unchanged when it relies on flex/grid layouts, pseudo-elements, shadows, rounded cards, CSS variables, or complex positioning. `views/templates/pdf.php` follows the supplied HTML's composition directly—brand/status and payroll-summary header, paired employee/company cards, combined earnings-and-deductions table, dark net-pay summary, and confidential footer—but expresses it with nested tables, solid fills, borders, padding, and inline-compatible selectors that TCPDF renders reliably.
+TCPDF's `writeHTML()` supports a useful but limited subset of browser HTML/CSS. The browser design cannot be passed through unchanged when it relies on flex/grid layouts, pseudo-elements, shadows, rounded cards, CSS variables, or complex positioning. `views/templates/pdf.php` mirrors the module's A4 print outcome—compact LuxCraft identity and payroll summary, employee/payment cards, salary breakdown, outlined net-pay/CPF summary, remarks, and computer-generated footer—but expresses it with width-controlled tables, solid borders, padding, and selectors that TCPDF renders reliably.
 
 The screen/print template remains separate so future browser styling does not accidentally break archived payroll PDFs. Do not paste a full browser document into the PDF view; use fragments supported by TCPDF and keep all values escaped.
 

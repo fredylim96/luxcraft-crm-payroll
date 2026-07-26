@@ -21,6 +21,7 @@ return [
     'pay_date' => '2026-07-31',
     'payroll_month' => 'July 2026',
     'payment_mode' => 'Bank Transfer',
+    'payment_details' => 'DBS 2728948527',
     'status' => 'Paid',
     'currency' => 'SGD',
     'earnings' => [
@@ -34,6 +35,7 @@ return [
     'total_deductions' => 1350.00,
     'employer_cpf' => 1148.00,
     'employee_cpf' => 1350.00,
+    'total_cpf' => 2498.00,
     'ytd_gross' => 47250.00,
     'ytd_cpf' => 17486.00,
     'net_pay' => 5400.00,
