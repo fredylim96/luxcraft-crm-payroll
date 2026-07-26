@@ -1,0 +1,28 @@
+name: Package Perfex module
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build installable module archive
+        run: zip -r luxcraft_payslips.zip luxcraft_payslips -x '*.DS_Store' -x '__MACOSX/*'
+      - name: Upload workflow artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: luxcraft_payslips
+          path: luxcraft_payslips.zip
+      - name: Attach archive to GitHub release
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: luxcraft_payslips.zip

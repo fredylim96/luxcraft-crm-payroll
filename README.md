@@ -1,4 +1,17 @@
-# LuxCraft Payroll Perfex Module v21 PDF Text Format
+# LuxCraft Payroll for Perfex CRM
+
+## Installation
+
+Perfex requires the module directory and its bootstrap PHP file to have the same name. This repository therefore keeps all installable files inside `luxcraft_payslips/`, with the entry point at `luxcraft_payslips/luxcraft_payslips.php`.
+
+**Recommended:** download `luxcraft_payslips.zip` from the latest GitHub Release, then upload that ZIP in **Setup → Modules**. Do not upload GitHub's automatically generated “Source code” ZIP because it adds a repository-name wrapper directory that Perfex cannot detect as a module.
+
+For a manual installation, copy the complete `luxcraft_payslips/` directory to `<perfex-root>/modules/luxcraft_payslips/`. The resulting entry point must be `<perfex-root>/modules/luxcraft_payslips/luxcraft_payslips.php`. Then open **Setup → Modules** and activate **LuxCraft Payroll**.
+
+The release workflow packages the directory with the required layout whenever a `v*` tag is pushed, and also provides the ZIP as a workflow artifact when run manually.
+
+---
+
 
 ## Key updates
 - Repositioned module as Payroll, not only Payslips.

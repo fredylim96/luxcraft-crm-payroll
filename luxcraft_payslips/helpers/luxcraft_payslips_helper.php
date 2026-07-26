@@ -118,6 +118,16 @@ function luxcraft_company_logo_url()
     return base_url('uploads/company/' . $logo);
 }
 
+function luxcraft_company_favicon_url()
+{
+    $favicon = get_option('favicon');
+    if (!$favicon) {
+        return '';
+    }
+
+    return base_url('uploads/company/' . $favicon);
+}
+
 
 function luxcraft_pdf_money($amount)
 {
