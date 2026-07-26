@@ -135,8 +135,8 @@
   }
 
   .luxcraft-print-area .luxcraft-payslip-sheet {
-    width: 147.06% !important;
-    max-width: 147.06% !important;
+    width: 100% !important;
+    max-width: 100% !important;
     margin: 0 !important;
     zoom: 0.68;
     page-break-inside: avoid !important;

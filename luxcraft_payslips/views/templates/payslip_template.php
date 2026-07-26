@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed'); ?>
 <?php
-$logo_url = luxcraft_company_logo_url();
+$logo_url = luxcraft_company_favicon_url();
 $employee_name = !empty($payslip['payroll_name']) ? $payslip['payroll_name'] : $payslip['firstname'].' '.$payslip['lastname'];
 $is_pdf = !empty($is_pdf);
 $money = function ($amount) use ($is_pdf) {
