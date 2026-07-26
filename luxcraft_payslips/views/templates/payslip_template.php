@@ -10,53 +10,58 @@ $is_paid = isset($payslip['status']) && $payslip['status'] === 'paid';
 $status_label = $is_paid ? 'Salary Credited' : 'Pending Salary Payment';
 ?>
 <main class="luxcraft-payslip-sheet" aria-label="Payslip for <?php echo $employee_name; ?>">
-  <header class="luxcraft-payslip-hero"><table class="luxcraft-payslip-layout-table"><tr>
-    <td class="luxcraft-payslip-brand-cell"><div class="luxcraft-payslip-brand">
-      <table class="luxcraft-payslip-brand-row"><tr>
+  <header class="luxcraft-payslip-hero">
+    <div class="luxcraft-payslip-brand">
+      <div class="luxcraft-payslip-brand-row">
         <?php if($logo_url){ ?>
-          <td class="luxcraft-payslip-brand-logo-cell"><div class="luxcraft-payslip-logo"><img src="<?php echo $logo_url; ?>" alt="LuxCraft"></div></td>
+          <div class="luxcraft-payslip-logo"><img src="<?php echo $logo_url; ?>" alt="LuxCraft"></div>
         <?php } else { ?>
-          <td class="luxcraft-payslip-brand-logo-cell"><div class="luxcraft-payslip-logo luxcraft-payslip-logo-mark" aria-hidden="true">L</div></td>
+          <div class="luxcraft-payslip-logo luxcraft-payslip-logo-mark" aria-hidden="true">L</div>
         <?php } ?>
-        <td class="luxcraft-payslip-brand-text-cell"><div>
+        <div>
           <div class="luxcraft-payslip-eyebrow">Payslip Statement</div>
           <h1>LUXCRAFT PTE. LTD.</h1>
           <div class="luxcraft-payslip-uen">UEN: 202343751W</div>
-        </div></td>
-      </tr></table>
+        </div>
+      </div>
       <div class="luxcraft-payslip-pill <?php echo $is_paid ? 'luxcraft-payslip-pill-paid' : 'luxcraft-payslip-pill-pending'; ?>"><span></span><?php echo $status_label; ?></div>
       <div>
         <h2><?php echo luxcraft_format_salary_month($payslip['salary_month']); ?> Payslip</h2>
         <p>A clear summary of your monthly salary, statutory contributions and payment details.</p>
       </div>
-    </div></td>
+    </div>
 
-    <td class="luxcraft-payslip-period-cell"><aside class="luxcraft-payslip-period">
+    <aside class="luxcraft-payslip-period">
       <div class="luxcraft-payslip-eyebrow">Payroll Summary</div>
-      <table class="luxcraft-payslip-period-grid"><tr>
-        <td><span>Salary Month</span><strong><?php echo luxcraft_format_salary_month($payslip['salary_month']); ?></strong></td>
-        <td><span>Payment Date</span><strong><?php echo _d($payslip['payment_date']); ?></strong></td>
-      </tr><tr>
-        <td><span>Currency</span><strong>SGD</strong></td>
-        <td><span>Payment Method</span><strong><?php echo $payslip['payment_method']; ?></strong></td>
-      </tr></table>
-    </aside></td>
-  </tr></table></header>
+      <div class="luxcraft-payslip-period-grid">
+        <div><span>Salary Month</span><strong><?php echo luxcraft_format_salary_month($payslip['salary_month']); ?></strong></div>
+        <div><span>Payment Date</span><strong><?php echo _d($payslip['payment_date']); ?></strong></div>
+        <div><span>Currency</span><strong>SGD</strong></div>
+        <div><span>Payment Method</span><strong><?php echo $payslip['payment_method']; ?></strong></div>
+      </div>
+    </aside>
+  </header>
 
   <div class="luxcraft-payslip-content">
-    <section class="luxcraft-payslip-details-grid"><table class="luxcraft-payslip-layout-table"><tr>
-      <td class="luxcraft-payslip-half luxcraft-payslip-left-cell"><article class="luxcraft-payslip-panel">
+    <section class="luxcraft-payslip-details-grid">
+      <article class="luxcraft-payslip-panel">
         <div class="luxcraft-payslip-section-heading"><h3>Employee Information</h3><span>Employee record</span></div>
-        <table class="luxcraft-payslip-detail-grid"><tr><td><span>Employee Name</span><strong><?php echo $employee_name; ?></strong></td><td><span>Job Title</span><strong><?php echo $payslip['job_title']; ?></strong></td></tr></table>
-      </article></td>
-      <td class="luxcraft-payslip-half luxcraft-payslip-right-cell"><article class="luxcraft-payslip-panel">
+        <div class="luxcraft-payslip-detail-grid">
+          <div><span>Employee Name</span><strong><?php echo $employee_name; ?></strong></div>
+          <div><span>Job Title</span><strong><?php echo $payslip['job_title']; ?></strong></div>
+        </div>
+      </article>
+      <article class="luxcraft-payslip-panel">
         <div class="luxcraft-payslip-section-heading"><h3>Payment Details</h3><span>Payment record</span></div>
-        <table class="luxcraft-payslip-detail-grid"><tr><td><span>Payment Method</span><strong><?php echo $payslip['payment_method']; ?></strong></td><td><span>Payment Details</span><strong><?php echo $payslip['payment_details']; ?></strong></td></tr></table>
-      </article></td>
-    </tr></table></section>
+        <div class="luxcraft-payslip-detail-grid">
+          <div><span>Payment Method</span><strong><?php echo $payslip['payment_method']; ?></strong></div>
+          <div><span>Payment Details</span><strong><?php echo $payslip['payment_details']; ?></strong></div>
+        </div>
+      </article>
+    </section>
 
-    <section class="luxcraft-payslip-salary-grid"><table class="luxcraft-payslip-layout-table"><tr>
-      <td class="luxcraft-payslip-salary-cell"><article class="luxcraft-payslip-panel luxcraft-payslip-breakdown">
+    <section class="luxcraft-payslip-salary-grid">
+      <article class="luxcraft-payslip-panel luxcraft-payslip-breakdown">
         <div class="luxcraft-payslip-section-heading"><h3>Salary Breakdown</h3><span>Month breakdown</span></div>
         <table aria-label="Salary breakdown">
           <thead><tr><th>Description</th><th class="text-right">Amount (SGD)</th></tr></thead>
@@ -68,14 +73,17 @@ $status_label = $is_paid ? 'Salary Credited' : 'Pending Salary Payment';
             <tr><td><strong>Employee CPF Contribution</strong></td><td class="text-right">-<?php echo $money($payslip['cpf_employee']); ?></td></tr>
           </tbody>
         </table>
-      </article></td>
+      </article>
 
-      <td class="luxcraft-payslip-summary-cell"><aside class="luxcraft-payslip-summary">
+      <aside class="luxcraft-payslip-summary">
         <div class="luxcraft-payslip-summary-label">Net Salary / Take Home Pay</div>
         <div class="luxcraft-payslip-net"><span>Amount payable</span><strong><?php echo $money($payslip['take_home_pay']); ?></strong></div>
-        <table class="luxcraft-payslip-summary-list"><tr><td>Employer CPF Contribution</td><td><strong><?php echo $money($payslip['cpf_employer']); ?></strong></td></tr><tr><td>Total CPF Contribution</td><td><strong><?php echo $money($payslip['cpf_total']); ?></strong></td></tr></table>
-      </aside></td>
-    </tr></table></section>
+        <ul>
+          <li><span>Employer CPF Contribution</span><strong><?php echo $money($payslip['cpf_employer']); ?></strong></li>
+          <li><span>Total CPF Contribution</span><strong><?php echo $money($payslip['cpf_total']); ?></strong></li>
+        </ul>
+      </aside>
+    </section>
 
     <?php if($payslip['remarks']){ ?>
       <section class="luxcraft-payslip-panel luxcraft-payslip-remarks">
@@ -84,9 +92,9 @@ $status_label = $is_paid ? 'Salary Credited' : 'Pending Salary Payment';
       </section>
     <?php } ?>
 
-    <footer class="luxcraft-payslip-document-footer"><table><tr>
-      <td><p>This is a computer-generated payslip. No signature is required.</p></td>
-      <td class="luxcraft-payslip-seal-cell"><span>Confidential payroll record</span></td>
-    </tr></table></footer>
+    <footer class="luxcraft-payslip-document-footer">
+      <p>This is a computer-generated payslip. No signature is required.</p>
+      <span>Confidential payroll record</span>
+    </footer>
   </div>
 </main>
