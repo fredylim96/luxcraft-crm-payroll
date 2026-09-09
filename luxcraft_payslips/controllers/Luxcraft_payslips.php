@@ -130,7 +130,8 @@ class Luxcraft_payslips extends AdminController
                 $allowances = 0;
                 $deductions = 0;
 
-                $cpf = luxcraft_calculate_cpf($base_salary + $commission + $allowances, $profile['employment_type']);
+                $cpf_base = luxcraft_cpf_wage_base($base_salary, $commission, $allowances, $deductions);
+                $cpf = luxcraft_calculate_cpf($cpf_base, $profile['employment_type']);
                 $take_home = luxcraft_take_home($base_salary, $commission, $allowances, $deductions, $cpf['employee']);
 
                 $payload = [
@@ -194,7 +195,7 @@ class Luxcraft_payslips extends AdminController
             $allowances = isset($post['allowances']) ? (float)$post['allowances'] : 0;
             $deductions = isset($post['deductions']) ? (float)$post['deductions'] : 0;
 
-            $cpf_base = $base_salary + $commission + $allowances;
+            $cpf_base = luxcraft_cpf_wage_base($base_salary, $commission, $allowances, $deductions);
             $cpf = luxcraft_calculate_cpf($cpf_base, $profile['employment_type']);
             $take_home = luxcraft_take_home($base_salary, $commission, $allowances, $deductions, $cpf['employee']);
 
@@ -251,7 +252,8 @@ class Luxcraft_payslips extends AdminController
         $allowances = isset($post['allowances']) ? (float)$post['allowances'] : 0;
         $deductions = isset($post['deductions']) ? (float)$post['deductions'] : 0;
 
-        $cpf = luxcraft_calculate_cpf($base_salary + $commission + $allowances, $profile['employment_type']);
+        $cpf_base = luxcraft_cpf_wage_base($base_salary, $commission, $allowances, $deductions);
+        $cpf = luxcraft_calculate_cpf($cpf_base, $profile['employment_type']);
         $take_home = luxcraft_take_home($base_salary, $commission, $allowances, $deductions, $cpf['employee']);
 
         header('Content-Type: application/json');

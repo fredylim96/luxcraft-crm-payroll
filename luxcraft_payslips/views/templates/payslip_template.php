@@ -73,6 +73,8 @@ $status_label = $is_paid ? 'Salary Credited' : 'Pending Salary Payment';
             <?php if((float)$payslip['allowances'] != 0){ ?><tr><td><strong>Allowances</strong></td><td class="text-right"><?php echo $money($payslip['allowances']); ?></td></tr><?php } ?>
             <?php if((float)$payslip['deductions'] != 0){ ?><tr><td><strong>Other Deductions</strong></td><td class="text-right">-<?php echo $money($payslip['deductions']); ?></td></tr><?php } ?>
             <tr><td><strong>Employee CPF Contribution</strong></td><td class="text-right">-<?php echo $money($payslip['cpf_employee']); ?></td></tr>
+            <tr><td><strong>Employer CPF Contribution</strong></td><td class="text-right"><?php echo $money($payslip['cpf_employer']); ?></td></tr>
+            <tr><td><strong>Total CPF Contribution</strong></td><td class="text-right"><?php echo $money($payslip['cpf_total']); ?></td></tr>
           </tbody>
         </table>
       </article>
@@ -80,10 +82,6 @@ $status_label = $is_paid ? 'Salary Credited' : 'Pending Salary Payment';
       <aside class="luxcraft-payslip-summary">
         <div class="luxcraft-payslip-summary-label">Net Salary / Take Home Pay</div>
         <div class="luxcraft-payslip-net"><span>Amount payable</span><strong><?php echo $money($payslip['take_home_pay']); ?></strong></div>
-        <ul>
-          <li><span>Employer CPF Contribution</span><strong><?php echo $money($payslip['cpf_employer']); ?></strong></li>
-          <li><span>Total CPF Contribution</span><strong><?php echo $money($payslip['cpf_total']); ?></strong></li>
-        </ul>
       </aside>
     </section>
 

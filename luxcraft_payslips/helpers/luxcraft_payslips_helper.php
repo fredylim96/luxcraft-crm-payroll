@@ -85,6 +85,11 @@ function luxcraft_calculate_cpf($ordinary_wages, $employment_type = 'singapore_c
     ];
 }
 
+function luxcraft_cpf_wage_base($base, $commission, $allowances, $deductions)
+{
+    return (float)$base + (float)$commission + (float)$allowances - (float)$deductions;
+}
+
 function luxcraft_take_home($base, $commission, $allowances, $deductions, $cpf_employee)
 {
     return round(((float)$base + (float)$commission + (float)$allowances) - (float)$deductions - (float)$cpf_employee, 2);
